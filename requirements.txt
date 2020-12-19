@@ -1,4 +1,7 @@
 aiohttp
+aiofiles
+psutil
+requests
 websockets
 lxml
 discord.py>=0.16.0
