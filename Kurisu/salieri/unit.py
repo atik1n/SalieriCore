@@ -9,4 +9,6 @@ def run(test):
 def run_all():
     res = []
     res += [run(tips)]
+    res += [run(nyaa)]
+    res += [run(embeds)]
     return res
