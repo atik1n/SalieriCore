@@ -27,62 +27,15 @@ class FGL(commands.Cog, name='FGL Cog'):
 		self.bot = bot
 
 	@commands.command()
-	async def help(self, ctx, *commands: str):
-		"""Возвращает данное сообщение"""
-		bot = ctx.bot
-		destination = ctx.message.channel
-
-		def repl(obj):
-			return _mentions_transforms.get(obj.group(0), '')
-
-		#help by itself just lists our own commands.
-		if len(commands) == 0:
-			helpEmbed = await bot.formatter.format_help_for(ctx, bot)
-		elif len(commands) == 1:
-			#try to see if it is a cog name
-			name = _mention_pattern.sub(repl, commands[0])
-			command = None
-			if name in bot.cogs:
-				command = bot.cogs[name]
-			else:
-				command = bot.all_commands.get(name)
-				if command is None:
-					await destination.send("Команда %s не найдена." % name)
-					return
-
-			helpEmbed = await bot.formatter.format_help_for(ctx, command)
-		else:
-			name = _mention_pattern.sub(repl, commands[0])
-			command = bot.all_commands.get(name)
-			if command is None:
-				await destination.send("Команда %s не найдена." % name)
-				return
-
-			for key in commands[1:]:
-				try:
-					key = _mention_pattern.sub(repl, key)
-					command = command.all_commands.get(key)
-					if command is None:
-						await destination.send("Подкоманда %s не найдена." % key)
-						return
-				except AttributeError:
-					await destination.send("Команда %s не имеет подкоманд." % name)
-					return
-
-			helpEmbed = await bot.formatter.format_help_for(ctx, command)
-
-		await destination.send(embed=helpEmbed)
-
-	@commands.command()
 	async def status(self, ctx):
 		"""Возвращает информацию о хост-машине"""
 		stats = kurisu.prefs.info()
 
 		emb = kurisu.prefs.Embeds.new('normal')
-		emb.add_field(name=kurisu.prefs.i18n(self, 'stats'),
+		emb.add_field(name='Статистика',
     	value='CPU All: {d[0]}\nCPU 1: {d[1][0]}\nCPU 2: {d[1][1]}\nCPU 3: {d[1][2]}\nCPU 4: {d[1][3]}\nRAM Total: {d[2]}MB\nRAM Used: {d[3]}MB\nTemp: {d[5]}`C\nUptime: {d[6]}'.format(d=stats))
-		emb.add_field(name=kurisu.prefs.i18n(self, 'bot'), value=kurisu.prefs.i18n(self, 'root') % self.bot.root_folder)
-		emb.add_field(name=kurisu.prefs.i18n(self, 'moeka'), value=kurisu.prefs.i18n(self, 'cache') % cache_size())
+		emb.add_field(name='Бот', value='Корень: %s' % 'kurisu')
+		emb.add_field(name='Музыка', value='Кэш: %s' % cache_size())
 
 		await ctx.send(embed=emb)
 

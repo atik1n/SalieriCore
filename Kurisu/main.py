@@ -1,11 +1,11 @@
 import discord, datetime
 from discord.ext import commands
 
-import kurisu.nyaa, kurisu.tips, kurisu.alpaca, kurisu.prefs
+import kurisu.nyaa, kurisu.tips, kurisu.prefs
 import salieri.tasks, salieri.core
 import requests
 
-startup_extensions = ["kurisu.cogs.steins", "kurisu.cogs.upa", "kurisu.cogs.fgl", "salieri.main", "kurisu.cogs.rnd"]
+startup_extensions = ["kurisu.cogs.steins", "kurisu.cogs.fgl", "salieri.main", "kurisu.cogs.rnd"]
 startup_system = ["kurisu.system.messages"]
 
 client = commands.Bot(command_prefix='!', description='Salieri Systems')
@@ -56,7 +56,6 @@ async def on_ready():
 																name='Steins;Gate 0',
 															   	type=3))
 		salieri.tasks.loop = client.loop
-		await salieri.tasks.new(kurisu.alpaca.alpacaLoop)
 		kurisu.prefs.startup = datetime.datetime.now()
 
 	desc = '{u.mention} готова к работе.'.format(u=client.user)

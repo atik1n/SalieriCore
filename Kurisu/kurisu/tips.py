@@ -66,7 +66,8 @@ async def search(tip, ctx, sg=1):
 		tip = tips[sg][i].split('|')
 
 	tip[1] = tip[1].replace('[linebreak]', '\n')
-
+	if len(tip[1]) > 1000:
+		tip[1] = tip[1][:900] + "... [не влезло :c]"
 	tmpEmbed = copy.deepcopy(tipsEmbed)
 	tmpEmbed.set_author(name=t, icon_url="https://pp.userapi.com/c831209/v831209232/15d24c/tA_XzT7cXYA.jpg")
 	tmpEmbed.add_field(name=k[sg][i], value=tip[1], inline=True)
