@@ -81,6 +81,9 @@ class Embeds:
 
 	SG0 = discord.Embed(colour=discord.Colour.dark_red())
 
+	tip = discord.Embed(colour=discord.Colour.dark_red())
+	tip.set_thumbnail(url = 'https://pp.userapi.com/c831208/v831208232/1655b0/KlMKUSjaQws.jpg')
+
 	@classmethod
 	def new(cls, name: str):
 		try:

@@ -44,6 +44,26 @@ class SteinsGate(commands.Cog, name='Штаны Гея'):
 		else:
 			await ctx.message.channel.send('Вы и так не подписаны на уведомления.')
 
+	async def tips_command(self, tip, ctx, sg=1):
+		await ctx.send('Ищу...')
+
+		tip = kurisu.tips.search(tip, sg)
+		if tip[0][0]:
+			header = "TIPS"
+		else:
+			if tip[0][1] < 85:
+				if tip[0][2] > 2:
+					await ctx.send('Ничего не найдено.')
+				await ctx.send('Я слишком неуверена...\n*Вероятность: %.2f%%*' % tip[0][1])
+				return
+			header = "TIPS | %.2f%%" % tip[0][1]
+
+		tmpEmbed = kurisu.prefs.Embeds.new('tip')
+		tmpEmbed.set_author(name=header, icon_url="https://pp.userapi.com/c831209/v831209232/15d24c/tA_XzT7cXYA.jpg")
+		tmpEmbed.add_field(name=tip[1], value=tip[2][1], inline=True)
+		tmpEmbed.set_footer(text=tip[2][0])
+		await ctx.send(embed=tmpEmbed)
+
 	@commands.command()
 	async def tips(self, ctx, *tip: str):
 		"""Поиск по TIPS Steins;Gate.
@@ -54,7 +74,19 @@ class SteinsGate(commands.Cog, name='Штаны Гея'):
 			TIP, который нужно найти.
 		"""
 		tip = ' '.join(tip)
-		await kurisu.tips.search(tip, ctx)
+		await self.tips_command(tip, ctx)
+
+	@commands.command()
+	async def tips0(self, ctx, *tip: str):
+		"""Поиск по TIPS Steins;Gate 0.
+
+		Аргументы:
+		-----------
+		tip: `str`
+			TIP, который нужно найти.
+		"""
+		tip = ' '.join(tip)
+		await self.tips_command(tip, ctx, 0)
 
 	@commands.command()
 	async def sg0(self, ctx, episode: int):
@@ -98,18 +130,6 @@ class SteinsGate(commands.Cog, name='Штаны Гея'):
 		pt = '%s в %s' % (pt[0], pt[1][:-3])
 		tmpEmbed.set_footer(text='Последнее обновление БД: %s' % pt)
 		await ctx.send(embed=tmpEmbed)
-
-	@commands.command()
-	async def tips0(self, ctx, *tip: str):
-		"""Поиск по TIPS Steins;Gate 0.
-
-		Аргументы:
-		-----------
-		tip: `str`
-			TIP, который нужно найти.
-		"""
-		tip = ' '.join(tip)
-		await kurisu.tips.search(tip, ctx, 0)
 
 
 def setup(bot):

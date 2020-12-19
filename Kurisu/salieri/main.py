@@ -453,6 +453,8 @@ class Amadeus(commands.Cog, name='Amadeus systems'):
 				tasks = []
 				for k in salieri.tasks.allTasks.keys():
 					tasks.append(k)
+				if not tasks:
+					tasks.append('Нет задач')
 				embed.add_field(name="Текущие задачи", value="\n".join(tasks))
 				await ctx.send(embed=embed)
 			else:

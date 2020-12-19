@@ -1,5 +1,4 @@
 import salieri.unit as unit
 
 if (__name__ == "__main__"):
-    results = unit.run_all()
-    print('\n'.join(results))
+    print('\n---------\n'.join(unit.run_all()))
