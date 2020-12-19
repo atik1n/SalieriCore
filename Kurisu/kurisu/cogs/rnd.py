@@ -3,7 +3,7 @@ import kurisu.prefs
 import random, json
 import os, math
 
-class KurisuRND(commands.Cog, name='Rundom Nigga Generator'):
+class KurisuRND(commands.Cog, name='Rundom Nibba Generator'):
   """BETA: Команды для броска кубиков"""
   
   statsEn = ['WS', 'BS', 'S', 'T', 'Ag', 'Int', 'Per', 'WP', 'Fel']
