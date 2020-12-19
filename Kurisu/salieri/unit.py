@@ -2,7 +2,7 @@ from .units import *
 
 def run(test):
     log = []
-    log += ['Test %s' % test.name]
+    log += ['Тест "%s"' % test.name]
     log += test.run()
     return '\n'.join(log)
 
